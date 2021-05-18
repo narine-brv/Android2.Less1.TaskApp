@@ -15,4 +15,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="32dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_task"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
