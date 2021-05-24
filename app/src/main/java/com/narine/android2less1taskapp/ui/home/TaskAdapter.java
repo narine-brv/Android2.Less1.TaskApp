@@ -57,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
                 return false;
             }
         });
-        if (position % 2 ==1){
+        if (position % 2 == 0){ //проверка на остаток, если при делении остаток равен 0 то выполни следующее
             holder.itemView.setBackgroundColor(Color.parseColor("gray"));
         }
 
@@ -88,7 +88,8 @@ public class TaskAdapter extends RecyclerView.Adapter <TaskAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(),String.valueOf(getAdapterPosition()) + " : " + task.getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(),String.valueOf(getAdapterPosition())
+                            + " : " + task.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

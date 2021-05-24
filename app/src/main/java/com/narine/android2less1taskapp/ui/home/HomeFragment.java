@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
                 openTaskFragment ();
             }
         });
+
         setResultListener();
         initList();
     }
