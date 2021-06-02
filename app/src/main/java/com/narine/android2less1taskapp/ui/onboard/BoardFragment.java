@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.narine.android2less1taskapp.Prefs;
 import com.narine.android2less1taskapp.R;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -46,7 +47,7 @@ public class BoardFragment extends Fragment implements BoardAdapter.OpenHome {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigate(R.id.navigation_home);
+                close (R.id.navigation_home);
             }
         });
 
@@ -62,15 +63,16 @@ public class BoardFragment extends Fragment implements BoardAdapter.OpenHome {
                 });
     }
 
-    private void navigate(int navigate) {
+    private void close (int navigate) {
+        new Prefs(requireContext()).saveBoardState();
         NavController navController =
                 Navigation.findNavController(requireActivity(),R.id.nav_host_fragment);
-        navController.navigate(R.id.navigation_home);
+        navController.navigateUp();
     }
 
 
     @Override
     public void btnOpenHome() {
-        navigate(R.id.navigation_home);
+        close (R.id.navigation_home);
     }
 }

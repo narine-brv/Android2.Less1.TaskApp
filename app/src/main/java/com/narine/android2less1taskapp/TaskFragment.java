@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.narine.android2less1taskapp.models.Task;
+
 public class TaskFragment extends Fragment {
 
     private EditText editText;
@@ -38,6 +40,10 @@ public class TaskFragment extends Fragment {
 
     private void save() { //при нажатии он устанавливает текст
         String text = editText.getText().toString();
+
+        Task task = new Task(text);
+        App.getAppDatabase().taskDao().insert(task);
+
         Bundle bundle = new Bundle(); //создаем упаковку
         bundle.putString("text", text); // при раскрытии он отдает ключ
         getParentFragmentManager().setFragmentResult("rk_task", bundle);

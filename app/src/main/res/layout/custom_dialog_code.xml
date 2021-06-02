@@ -4,21 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".TaskFragment">
+    tools:context=".ui.auth.PhoneFragment">
 
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/et_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите задачу"
+        android:hint="Введите код"
+        android:gravity="center"
         />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_code_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:text="Save"
+        android:layout_marginTop="24dp"
+        android:text="Продолжить"
+        android:textSize="20sp"
         />
+
 </LinearLayout>

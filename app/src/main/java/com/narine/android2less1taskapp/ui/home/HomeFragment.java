@@ -3,6 +3,9 @@ package com.narine.android2less1taskapp.ui.home;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -18,8 +21,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.narine.android2less1taskapp.App;
 import com.narine.android2less1taskapp.R;
 import com.narine.android2less1taskapp.models.Task;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -31,11 +37,14 @@ public class HomeFragment extends Fragment {
         // только один раз при запуске и все, не будет обновляться
         super.onCreate(savedInstanceState);
         adapter = new TaskAdapter(); //поэтому чтоб recycleview сохранял элементы необх-о адаптер вызывать здесь
+        List<Task> list = App.getAppDatabase().taskDao().getAll();
+        adapter.addItems(list);
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
@@ -76,5 +85,34 @@ public class HomeFragment extends Fragment {
     private void openTaskFragment() {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.taskFragment);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.btn_sort:
+                sortRoom();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void sortRoom() {
+        App.getAppDatabase().taskDao().sortByAsc().observe(getViewLifecycleOwner(),
+                new Observer<List<Task>>() {
+                    @Override
+                    public void onChanged(List<Task> tasks) {
+                        adapter.notifyDataSetChanged();
+                        adapter.addItems(tasks);
+                    }
+                });
     }
 }

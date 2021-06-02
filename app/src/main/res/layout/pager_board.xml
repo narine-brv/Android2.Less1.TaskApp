@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:text="Начать"
         android:layout_marginTop="50dp"
-        android:visibility="invisible"
 
         />
 </LinearLayout>

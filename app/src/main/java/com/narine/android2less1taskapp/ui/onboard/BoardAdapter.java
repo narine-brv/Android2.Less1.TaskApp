@@ -71,8 +71,10 @@ public class BoardAdapter extends RecyclerView.Adapter <BoardAdapter.ViewHolder>
             textTitle.setText(titles[position]);
             imgPagerBoard.setImageResource(pagerImages[position]);
 
-            if (position == 2) {
+            if (position == titles.length - 1) {
                 btnOpenHome.setVisibility(View.VISIBLE);
+            } else {
+                btnOpenHome.setVisibility(View.GONE);
             }
         }
     }
