@@ -12,7 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.narine.android2less1taskapp.models.Task;
 
 public class TaskFragment extends Fragment {
@@ -44,11 +48,29 @@ public class TaskFragment extends Fragment {
         Task task = new Task(text);
         App.getAppDatabase().taskDao().insert(task);
 
+        saveToFirestore (task);
+
         Bundle bundle = new Bundle(); //создаем упаковку
         bundle.putString("text", text); // при раскрытии он отдает ключ
         getParentFragmentManager().setFragmentResult("rk_task", bundle);
         //requireActivity().finish();
-        close();
+    }
+
+    private void saveToFirestore(Task task) {
+        FirebaseFirestore.getInstance()
+                .collection("tasks")
+                .add(task)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> t) {
+                        if (t.isSuccessful()){
+                            Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show();
+                            close();
+                        } else {
+                            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void close () {

@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         Prefs prefs = new Prefs(this);
         if (!prefs.isShown()) navController.navigate(R.id.boardFragment);// он накладывается на все фргаменты, чтобы открывался boardfragment
         //если в теле одна функция, то скобки не нужн
-
         navController.navigate(R.id.phoneFragment);
+
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
